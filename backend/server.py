@@ -7,7 +7,7 @@ import vectorshift
 from vectorshift.pipeline import Pipeline, InputNode, OutputNode, LlmNode
 
 # Authenticate with VectorShift
-vectorshift.api_key = os.getenv('sk_ZmQleddjo845oD4CpU1xsUmEEIeTJh2mWfZNWRaGL8OOUxID')
+vectorshift.api_key = os.getenv('VECTORSHIFT_API_KEY')
 if not vectorshift.api_key:
     raise ValueError("Set VECTORSHIFT_API_KEY environment variable")
 
@@ -42,7 +42,7 @@ class ChatHandler(SimpleHTTPRequestHandler):
                     value=llm_node.response
                 )
                 pipeline = Pipeline.new(
-                    name=f"chat-pipeline-{id(pipeline)}",  # Unique name to avoid conflicts
+                    name=f"chat-pipeline-{id(input_node)}",  # Unique name to avoid conflicts
                     nodes=[input_node, llm_node, output_node]
                 )
 
